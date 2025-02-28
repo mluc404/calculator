@@ -43,3 +43,10 @@ button:active {
 .container {
   margin: 5px;
 }
+
+#clear {
+  width: 100px;
+}
+
+.allOperators {
+}

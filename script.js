@@ -33,10 +33,17 @@ let plusButton = document.querySelector("#plus");
 let equalButton = document.querySelector("#equal");
 let resultBox = document.querySelector("#resultBox");
 let displayResult = document.querySelector("#resultText");
+let clearButton = document.querySelector("#clear");
 
 // Get input when number buttons are pressed
 allNums.forEach((numButton) => {
   numButton.addEventListener("click", (e) => {
+    if (currentOperator === null) {
+      result = 0;
+      previousInput = null;
+      currentInput = null;
+    }
+
     let numPressed = e.target.id;
     inputArr.push(numPressed);
     displayResult.textContent = inputArr.join("");
@@ -61,70 +68,69 @@ function joinNumbers(arr) {
 // assign that result to previousInput
 // capture the operator being pressed just now
 
-let k = 0;
 plusButton.addEventListener("click", (e) => {
-  console.log("====Plus button====");
   if (inputArr.length > 0) joinNumbers(inputArr);
   inputArr = [];
-  k++;
-  console.log("Plus button clicks", k);
-  operationArr.push("plus");
-  console.log(operationArr);
 
-  if (operationArr.length > 1) {
-    console.log("previousInput", previousInput);
-    console.log("currentInput", currentInput);
-    console.log("result before: ", result);
-    doCalculation(previousInput, currentInput, operationArr[0]);
-    console.log("result after", result);
-    previousInput = result;
+  if (previousInput !== null && currentInput !== null) {
+    doCalculation(previousInput, currentInput, currentOperator);
+
     displayResult.textContent = result;
-    resultBox.appendChild(displayResult);
+    previousInput = result;
     currentInput = null;
-    operationArr.splice(0, 1);
-    console.log(operationArr);
+
+    currentOperator = e.target.id;
   } else {
-    joinNumbers(inputArr);
+    currentOperator = e.target.id;
+    displayResult.textContent = previousInput;
   }
-
-  //   if (currentOperator !== null) {
-  //     console.log("Current operator:", currentOperator);
-  //     doCalculation(previousInput, currentInput);
-  //     previousInput = result;
-  //     displayResult.textContent = result;
-  //     resultBox.appendChild(displayResult);
-  //     currentInput = null;
-  //     currentOperator = "plus";
-  //     joinNumbers(inputArr);
-  //   } else {
-  //     currentOperator = "plus";
-  //     joinNumbers(inputArr);
-  //   }
-
-  //   console.log("inputAr", inputArr);
-  console.log("previousInput", previousInput);
-  console.log("currentInput", currentInput);
-  console.log("result", result);
-  console.log("=====================");
+  resultBox.appendChild(displayResult);
 });
 
-// Function when pressing equal button
+// Calculation function
 function doCalculation(previousInput, currentInput, currentOperator) {
   result = previousInput + currentInput;
+  //   displayResult.textContent = result;
+  //   previousInput = result;
+  //   currentInput = null;
+  //   return result, displayResult, previousInput, currentInput
 }
 
+// Equal button behavior
 equalButton.addEventListener("click", (e) => {
-  joinNumbers(inputArr);
-  inputArr = [];
-  doCalculation(previousInput, currentInput);
-  displayResult.textContent = result;
-  resultBox.appendChild(displayResult);
-  previousInput = result;
-  currentInput = null;
   console.log("====Equal button====");
+
+  if (currentOperator !== null) {
+    if (inputArr.length > 0) joinNumbers(inputArr);
+    inputArr = [];
+
+    if (previousInput !== null && currentInput !== null) {
+      doCalculation(previousInput, currentInput, currentOperator);
+      resultBox.appendChild(displayResult);
+
+      displayResult.textContent = result;
+      previousInput = result;
+      currentInput = null;
+
+      currentOperator = null;
+    }
+  }
+
   console.log("previousInput", previousInput);
   console.log("currentInput", currentInput);
   console.log("===End of Equal btn===");
 });
 
-// Function to display result
+// Function to clear everything
+function clearCalculator() {
+  inputArr = [];
+  currentInput = null;
+  previousInput = null;
+  result = 0;
+  currentOperator = null;
+  operationArr = [];
+  displayResult.textContent = "0";
+}
+
+// Add Event listener to clear button
+clearButton.addEventListener("click", clearCalculator);

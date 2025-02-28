@@ -50,110 +50,72 @@ allNums.forEach((numButton) => {
   });
 });
 
-// Function to transform text array into a number
+// Function to transform input text array into a number
 function joinNumbers(arr) {
-  if (previousInput === null) previousInput = parseFloat(arr.join(""));
-  else currentInput = parseFloat(arr.join(""));
-  //   inputArr = [];
+  if (previousInput === null) {
+    previousInput = parseFloat(arr.join(""));
+  } else {
+    currentInput = parseFloat(arr.join(""));
+  }
 }
 
-// function when + is clicked
-// if currentInput is not null -> then do the previous calculation with prevInput and currentinput and then store that result in previous input
-// join Numbers and assign it to previousInput
-// clear the inputArr
-
-// if the current operator is not null
-// do the previous calculation
-// assign that result to previousInput
-// capture the operator being pressed just now
-
-// Each operator button
+// Refractored Operator Button Event Listener
 fourOps.forEach((opButton) => {
   opButton.addEventListener("click", (e) => {
     if (inputArr.length > 0) joinNumbers(inputArr);
-    inputArr = [];
+    inputArr = []; // Resest input array
 
     if (previousInput !== null && currentInput !== null) {
-      doCalculation(previousInput, currentInput, currentOperator);
-
-      displayResult.textContent = result;
-      previousInput = result;
-      currentInput = null;
-
-      currentOperator = e.target.id;
-    } else {
-      currentOperator = e.target.id;
-      displayResult.textContent = previousInput;
+      doCalculation();
     }
-    resultBox.appendChild(displayResult);
+
+    // Store the selected operator
+    currentOperator = e.target.id;
+
+    // Keep the display updated
+    displayResult.textContent = previousInput;
   });
 });
 
-// plusButton.addEventListener("click", (e) => {
-//   if (inputArr.length > 0) joinNumbers(inputArr);
-//   inputArr = [];
-
-//   if (previousInput !== null && currentInput !== null) {
-//     doCalculation(previousInput, currentInput, currentOperator);
-
-//     displayResult.textContent = result;
-//     previousInput = result;
-//     currentInput = null;
-
-//     currentOperator = e.target.id;
-//   } else {
-//     currentOperator = e.target.id;
-//     displayResult.textContent = previousInput;
-//   }
-//   resultBox.appendChild(displayResult);
-// });
-
-// Calculation function
-function doCalculation(previousInput, currentInput, currentOperator) {
-  switch (currentOperator) {
-    case "plus":
-      result = previousInput + currentInput;
-      break;
-    case "minus":
-      result = previousInput - currentInput;
-      break;
-    case "multiply":
-      result = previousInput * currentInput;
-      break;
-    case "divide":
-      result = previousInput / currentInput;
-      break;
+// Refractored Calculation Function
+// It does not need arguments. It directly modifies global vars
+function doCalculation() {
+  if (
+    previousInput !== null &&
+    currentInput !== null &&
+    currentOperator !== null
+  ) {
+    switch (currentOperator) {
+      case "plus":
+        result = previousInput + currentInput;
+        break;
+      case "minus":
+        result = previousInput - currentInput;
+        break;
+      case "multiply":
+        result = previousInput * currentInput;
+        break;
+      case "divide":
+        result = previousInput / currentInput;
+        break;
+    }
   }
-  //   result = previousInput + currentInput;
-  //   displayResult.textContent = result;
-  //   previousInput = result;
-  //   currentInput = null;
-  //   return result, displayResult, previousInput, currentInput
+  //   Update the display
+  displayResult.textContent = result;
+
+  // Prepare for the next operation
+  previousInput = result;
+  currentInput = null;
 }
 
-// Equal button behavior
+// Equal button Event Listener Refractored
 equalButton.addEventListener("click", (e) => {
-  console.log("====Equal button====");
-
   if (currentOperator !== null) {
     if (inputArr.length > 0) joinNumbers(inputArr);
     inputArr = [];
-
-    if (previousInput !== null && currentInput !== null) {
-      doCalculation(previousInput, currentInput, currentOperator);
-      resultBox.appendChild(displayResult);
-
-      displayResult.textContent = result;
-      previousInput = result;
-      currentInput = null;
-
-      currentOperator = null;
-    }
+    doCalculation();
+    currentOperator = null; // Reset operator after calculation
   }
-
-  console.log("previousInput", previousInput);
-  console.log("currentInput", currentInput);
-  console.log("===End of Equal btn===");
 });
 
 // Function to clear everything
@@ -163,9 +125,8 @@ function clearCalculator() {
   previousInput = null;
   result = 0;
   currentOperator = null;
-  operationArr = [];
   displayResult.textContent = "0";
 }
 
-// Add Event listener to clear button
+// Add Event listener for Clear button
 clearButton.addEventListener("click", clearCalculator);

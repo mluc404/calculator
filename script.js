@@ -29,6 +29,7 @@ let operationArr = [];
 
 // Select DOM elements
 let allNums = document.querySelectorAll(".number");
+let fourOps = document.querySelectorAll(".operator");
 let plusButton = document.querySelector("#plus");
 let equalButton = document.querySelector("#equal");
 let resultBox = document.querySelector("#resultBox");
@@ -43,11 +44,9 @@ allNums.forEach((numButton) => {
       previousInput = null;
       currentInput = null;
     }
-
     let numPressed = e.target.id;
     inputArr.push(numPressed);
     displayResult.textContent = inputArr.join("");
-    // joinNumbers(inputArr);
   });
 });
 
@@ -68,28 +67,64 @@ function joinNumbers(arr) {
 // assign that result to previousInput
 // capture the operator being pressed just now
 
-plusButton.addEventListener("click", (e) => {
-  if (inputArr.length > 0) joinNumbers(inputArr);
-  inputArr = [];
+// Each operator button
+fourOps.forEach((opButton) => {
+  opButton.addEventListener("click", (e) => {
+    if (inputArr.length > 0) joinNumbers(inputArr);
+    inputArr = [];
 
-  if (previousInput !== null && currentInput !== null) {
-    doCalculation(previousInput, currentInput, currentOperator);
+    if (previousInput !== null && currentInput !== null) {
+      doCalculation(previousInput, currentInput, currentOperator);
 
-    displayResult.textContent = result;
-    previousInput = result;
-    currentInput = null;
+      displayResult.textContent = result;
+      previousInput = result;
+      currentInput = null;
 
-    currentOperator = e.target.id;
-  } else {
-    currentOperator = e.target.id;
-    displayResult.textContent = previousInput;
-  }
-  resultBox.appendChild(displayResult);
+      currentOperator = e.target.id;
+    } else {
+      currentOperator = e.target.id;
+      displayResult.textContent = previousInput;
+    }
+    resultBox.appendChild(displayResult);
+  });
 });
+
+// plusButton.addEventListener("click", (e) => {
+//   if (inputArr.length > 0) joinNumbers(inputArr);
+//   inputArr = [];
+
+//   if (previousInput !== null && currentInput !== null) {
+//     doCalculation(previousInput, currentInput, currentOperator);
+
+//     displayResult.textContent = result;
+//     previousInput = result;
+//     currentInput = null;
+
+//     currentOperator = e.target.id;
+//   } else {
+//     currentOperator = e.target.id;
+//     displayResult.textContent = previousInput;
+//   }
+//   resultBox.appendChild(displayResult);
+// });
 
 // Calculation function
 function doCalculation(previousInput, currentInput, currentOperator) {
-  result = previousInput + currentInput;
+  switch (currentOperator) {
+    case "plus":
+      result = previousInput + currentInput;
+      break;
+    case "minus":
+      result = previousInput - currentInput;
+      break;
+    case "multiply":
+      result = previousInput * currentInput;
+      break;
+    case "divide":
+      result = previousInput / currentInput;
+      break;
+  }
+  //   result = previousInput + currentInput;
   //   displayResult.textContent = result;
   //   previousInput = result;
   //   currentInput = null;

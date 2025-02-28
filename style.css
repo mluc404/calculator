@@ -2,29 +2,43 @@
   font-family: "Courier New", Courier, monospace;
 }
 
+#overallDiv {
+  max-width: 250px;
+  min-width: 220px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* align-items: center; */
+  /* border: grey solid 1px; */
+  border-radius: 10px;
+  background-color: #2c4059;
+  padding: 10px 1px;
+}
+
 button {
   width: 50px;
   height: 50px;
-  border: grey solid 2px;
+  /* border: rgb(146, 88, 22) solid 2px; */
   border-radius: 5px;
   cursor: pointer;
   font-weight: 600;
   font-size: 1.3em;
+  background-color: rgb(121, 202, 237);
 }
 
 button:hover {
   /* background-color: #008cba; */
-  background-color: #4e4e4e;
+  background-color: #ca912e;
   color: white;
 }
 
 button:active {
-  box-shadow: 0px 0px 0px 1px rgb(58, 58, 58);
+  box-shadow: 0px 0px 0px 1px rgb(81, 142, 157);
 }
 
 #resultBox {
   box-sizing: border-box;
-  width: 110px;
+  width: 220px;
   height: 50px;
   border: grey solid 2px;
   border-radius: 5px;
@@ -32,6 +46,7 @@ button:active {
   padding: 5px;
   display: flex;
   align-items: center;
+  background-color: aliceblue;
 }
 
 #resultText {
@@ -44,9 +59,44 @@ button:active {
   margin: 5px;
 }
 
-#clear {
+#clear,
+#equal {
   width: 100px;
+  background-color: rgb(228, 125, 216);
 }
 
-.allOperators {
+#equal {
+  background-color: rgb(110, 242, 202);
+}
+
+#allNumbers {
+  /* box-sizing: border-box; */
+  width: 160px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+#fourOperators {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50px;
+  gap: 5px;
+}
+
+#belowDisplay {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#allOtherButons {
+  margin: 5px 0 0 0;
+  width: 220px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#fourOperators button {
+  background-color: rgb(110, 242, 202);
 }

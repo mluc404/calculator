@@ -1,4 +1,4 @@
-* {
+/* * {
   font-family: "Courier New", Courier, monospace;
 }
 
@@ -8,8 +8,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  /* align-items: center; */
-  /* border: grey solid 1px; */
   border-radius: 10px;
   background-color: #2c4059;
   padding: 10px 1px;
@@ -18,7 +16,6 @@
 button {
   width: 50px;
   height: 50px;
-  /* border: rgb(146, 88, 22) solid 2px; */
   border-radius: 5px;
   cursor: pointer;
   font-weight: 600;
@@ -69,7 +66,6 @@ button:active {
 }
 
 #allNumbers {
-  /* box-sizing: border-box; */
   width: 160px;
   display: flex;
   flex-wrap: wrap;
@@ -98,4 +94,169 @@ button:active {
 
 #fourOperators button {
   background-color: rgb(110, 242, 202);
+} */
+
+/* ============================================== */
+/* ============================================== */
+/* ============================================== */
+/* REDO STYLING */
+
+/* Reset & Base Styles */
+* {
+  font-family: "Courier New", Courier, monospace;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; */
+  background-color: #0f151e; /* Dark theme background */
+  margin-top: 50px;
+}
+
+h1 {
+  width: 100%;
+  text-align: center;
+  color: white;
+  margin-bottom: 15px;
+}
+
+/* Calculator Container */
+#overallDiv {
+  max-width: 300px;
+  min-width: 240px;
+  border-radius: 12px;
+  background-color: #334155; /* Dark gray-blue */
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Below Display */
+#belowDisplay {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Display Box */
+#resultBox {
+  width: 90%;
+  height: 60px;
+  border-radius: 8px;
+  background-color: #f8fafc;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
+  font-size: 2em;
+  font-weight: bold;
+  color: #1e3a8a; /* Dark blue */
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+/* Button Layout */
+.container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+/* Buttons */
+button {
+  width: 55px;
+  height: 55px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.4em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Number Buttons */
+.number {
+  background-color: #60a5fa; /* Blue */
+  color: white;
+}
+
+.number:hover {
+  background-color: #3b82f6; /* Darker blue */
+}
+
+/* Operator Buttons */
+.operator {
+  background-color: #22d3ee; /* Cyan */
+  color: black;
+}
+
+.operator:hover {
+  background-color: #0ea5e9; /* Darker cyan */
+}
+
+/* Equal & Clear Buttons */
+#equal {
+  background-color: #10b981; /* Green */
+  color: white;
+  width: 105px;
+}
+
+#clear {
+  background-color: #da4c4c; /* Red */
+  color: white;
+  width: 105px;
+}
+
+#equal:hover {
+  background-color: #059669; /* Darker green */
+}
+
+#clear:hover {
+  background-color: #bb2727; /* Darker red */
+}
+
+/* Special Buttons */
+#decimal,
+#backspace {
+  background-color: #64748b; /* Gray */
+  color: white;
+}
+
+#decimal:hover,
+#backspace:hover {
+  background-color: #475569; /* Darker gray */
+}
+
+/* Number and Operator Containers */
+#allNumbers {
+  width: 68%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  margin: 10px 0px 10px -2px;
+}
+
+#fourOperators {
+  width: 55px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+#allOtherButons {
+  width: 230px;
+  display: flex;
+  justify-content: space-between;
+  /* margin-top: 10px; */
 }

@@ -27,7 +27,6 @@ button {
 }
 
 button:hover {
-  /* background-color: #008cba; */
   background-color: #ca912e;
   color: white;
 }

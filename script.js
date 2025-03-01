@@ -25,29 +25,63 @@ let currentInput = null;
 let previousInput = null;
 let result = 0;
 let currentOperator = null;
-let operationArr = [];
+let equationString = ""; // new var to track equation display
 
 // Select DOM elements
 let allNums = document.querySelectorAll(".number");
 let fourOps = document.querySelectorAll(".operator");
-let plusButton = document.querySelector("#plus");
 let equalButton = document.querySelector("#equal");
 let resultBox = document.querySelector("#resultBox");
 let displayResult = document.querySelector("#resultText");
 let clearButton = document.querySelector("#clear");
+let decimalButton = document.querySelector("#decimal");
+let backspaceButton = document.querySelector("#backspace");
 
 // Get input when number buttons are pressed
 allNums.forEach((numButton) => {
   numButton.addEventListener("click", (e) => {
-    if (currentOperator === null) {
+    let numPressed = e.target.textContent;
+
+    // If pressing a number after `=`, start fresh
+    if (currentOperator === null && previousInput !== null) {
       result = 0;
       previousInput = null;
       currentInput = null;
+      equationString = "";
     }
-    let numPressed = e.target.id;
     inputArr.push(numPressed);
-    displayResult.textContent = inputArr.join("");
+    displayResult.textContent = equationString + inputArr.join("");
   });
+});
+
+// Prevent Decimal Button to add more than one dot
+decimalButton.addEventListener("click", () => {
+  if (!inputArr.includes(".")) {
+    if (inputArr.length === 0) {
+      //   inputArr.push("0");
+      return;
+    }
+    inputArr.push(".");
+    displayResult.textContent = equationString + inputArr.join("");
+  }
+});
+
+// Backspace button event
+backspaceButton.addEventListener("click", () => {
+  if (inputArr.length > 0) {
+    inputArr.pop(); // Remove last digit from current number
+  } else if (equationString.length > 0 && currentOperator !== null) {
+    // Remove operator from equationString
+    equationString = equationString.slice(0, -1); // Remove " + "
+    currentOperator = null;
+  } else if (equationString.length > 0) {
+    // If everything is empty, reset
+    equationString = "";
+    // equationString = equationString.slice(0, -1);
+    previousInput = null;
+  }
+
+  displayResult.textContent = equationString + inputArr.join("");
 });
 
 // Function to transform input text array into a number
@@ -59,23 +93,13 @@ function joinNumbers(arr) {
   }
 }
 
-// Refractored Operator Button Event Listener
-fourOps.forEach((opButton) => {
-  opButton.addEventListener("click", (e) => {
-    if (inputArr.length > 0) joinNumbers(inputArr);
-    inputArr = []; // Resest input array
+// CONVERT A NUMBER TO STRING WILL AUTO REMOVE TRAILING ZEROS
 
-    if (previousInput !== null && currentInput !== null) {
-      doCalculation();
-    }
-
-    // Store the selected operator
-    currentOperator = e.target.id;
-
-    // Keep the display updated
-    displayResult.textContent = previousInput;
-  });
-});
+// Function to handle decimal place
+function formatNumber(num) {
+  if (Number.isInteger(num)) return num.toString(); // No decimal needed for 10.00
+  return parseFloat(num.toFixed(4)).toString(); // Ensure only 4 decimal place if needed
+}
 
 // Refractored Calculation Function
 // It does not need arguments. It directly modifies global vars
@@ -101,12 +125,37 @@ function doCalculation() {
     }
   }
   //   Update the display
-  displayResult.textContent = result;
+  //   displayResult.textContent = result;
 
   // Prepare for the next operation
   previousInput = result;
   currentInput = null;
 }
+
+// Refractored Operator Button Event Listener
+fourOps.forEach((opButton) => {
+  opButton.addEventListener("click", (e) => {
+    let selectedOperator = e.target.id;
+
+    if (inputArr.length > 0) joinNumbers(inputArr);
+    inputArr = []; // Resest input array
+
+    // If an operator was already selected, perform the calculation first
+    if (previousInput !== null && currentInput !== null) {
+      doCalculation();
+      equationString = formatNumber(result) + e.target.textContent;
+    } else if (previousInput !== null) {
+      // If no second number yet, allow changing operator
+      equationString = formatNumber(previousInput) + e.target.textContent;
+    }
+
+    // Store the selected operator
+    currentOperator = selectedOperator;
+
+    // Keep the display updated
+    displayResult.textContent = equationString;
+  });
+});
 
 // Equal button Event Listener Refractored
 equalButton.addEventListener("click", (e) => {
@@ -114,6 +163,8 @@ equalButton.addEventListener("click", (e) => {
     if (inputArr.length > 0) joinNumbers(inputArr);
     inputArr = [];
     doCalculation();
+    equationString = formatNumber(result);
+    displayResult.textContent = equationString;
     currentOperator = null; // Reset operator after calculation
   }
 });
@@ -126,6 +177,7 @@ function clearCalculator() {
   result = 0;
   currentOperator = null;
   displayResult.textContent = "0";
+  equationString = "";
 }
 
 // Add Event listener for Clear button

@@ -110,6 +110,19 @@ button {
 button:active {
   transform: scale(2);
   transition: transform 1s ease-in-out;
+
+  animation: flash 0.2s ease-in-out;
+}
+@keyframes flash {
+  0% {
+    filter: brightness(1.2);
+  }
+  50% {
+    filter: brightness(0.8);
+  }
+  100% {
+    filter: brightness(1);
+  }
 }
 
 /* Number Buttons */
@@ -117,10 +130,6 @@ button:active {
   background-color: #60a5fa; /* Blue */
   color: white;
 }
-
-/* .number:active {
-  background-color: rgb(255, 51, 51);
-} */
 
 .number:hover {
   background-color: #3b82f6;
@@ -138,23 +147,23 @@ button:active {
 
 /* Equal & Clear Buttons */
 #equal {
-  background-color: #10b981; /* Green */
+  background-color: #10b981;
   color: white;
   width: 165px;
 }
 
 #clear {
-  background-color: #da4c4c; /* Red */
+  background-color: #da4c4c;
   color: white;
   width: 165px;
 }
 
 #equal:hover {
-  background-color: #059669; /* Darker green */
+  background-color: #00d793;
 }
 
 #clear:hover {
-  background-color: #bb2727; /* Darker red */
+  background-color: #bb2727;
 }
 
 /* Special Buttons */

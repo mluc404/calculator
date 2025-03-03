@@ -1,85 +1,115 @@
 /* Reset & Base Styles */
 * {
   font-family: "Courier New", Courier, monospace;
+  font-weight: 600;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 body {
-  display: flex;
+  width: 90%;
+  max-width: 400px;
+  min-width: 400px;
+  /* margin: auto; */
+  /* display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   /* height: 100vh; */
-  background-color: #0f151e; /* Dark theme background */
-  margin-top: 100px;
+  background-color: #0f151e;
+  /* margin-top: 100px; */
+  margin: 100px auto;
 }
 
-h1 {
+@media (width <= 500px) {
+  body {
+    margin: 50px auto;
+    min-width: 300px;
+  }
+}
+/* h1 {
   width: 100%;
   text-align: center;
   color: white;
   margin-bottom: 15px;
   font-size: 3em;
-}
+} */
+
+/* ============================= */
+/* ============================= */
+/* ============================= */
 
 /* Calculator Container */
 #overallDiv {
-  width: 400px;
-  min-width: 400px;
-  min-height: 600px;
+  /* width: 90%;
+  margin: auto; */
+  /* width: 400px; */
+  /* max-width: 90%; */
+  /* min-width: 400px; */
+
+  /* width: 90%; */
+  /* max-width: 400px;
+  min-width: 300px; */
+  /* min-height: 600px; */
+  /* width: 90%; */
   height: auto;
+  background-color: #334155;
+  /* padding: 15px; */
+  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); */
+
+  border: #01485c solid 3px;
   border-radius: 12px;
-  background-color: #334155; /* Dark gray-blue */
-  padding: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  border: #01485c solid 4px;
-
-  /* display: flex;
+  display: flex;
   flex-wrap: wrap;
-  justify-content: center; */
+  justify-content: center;
+  align-content: flex-start;
+  /* gap: 10px; */
+}
 
+#overallDiv-2 {
   display: flex;
   flex-direction: column; /* Ensures elements are stacked */
   align-items: center; /* Centers elements horizontally */
   justify-content: flex-start; /* Expands from the top down */
 }
 
-/* Below Display */
-#belowDisplay {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-}
-
-/* Display Box */
+/* Result Box */
 #resultBox {
   /* Expand to fit #resultText */
-  width: 95%;
   min-height: 80px;
-  border-radius: 8px;
   background-color: #f8fafc;
   display: flex;
   justify-content: flex-end;
-  align-items: flex-end; /* Align text at the bottom */
+  align-items: flex-end;
   padding: 10px;
   font-size: 3em;
   font-weight: bold;
   color: #025c75;
-  overflow: hidden; /* Prevents overflow */
+
+  border-radius: 8px;
+  background-color: white;
+  width: 85%;
+  margin: 10% 0 5% 0;
+}
+
+#resultBox-2 {
+  overflow: hidden;
   word-wrap: break-word; /* Allows text wrapping */
   word-break: break-word; /* Breaks long words */
   flex-direction: column; /* Stack numbers vertically */
-  margin: 10px 0;
+}
+
+/* Below Display */
+
+#fourByFour {
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 #resultText {
-  /* Prevents text from overflowing */
   width: 100%;
   display: block;
   text-align: right;
@@ -87,16 +117,80 @@ h1 {
   word-break: break-word;
 }
 
+#allNumbers {
+  width: 75%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+#fourOperators {
+  width: 25%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  /* justify-content: flex-end; */
+  align-items: flex-start;
+  gap: 10px;
+}
+
+#fourByFour button {
+  width: 70px;
+  height: 70px;
+  font-size: 1.8rem;
+
+  border-radius: 8px;
+}
+
+@media (width <= 500px) {
+  #fourByFour button {
+    width: 65px;
+    height: 65px;
+    font-size: 1.7rem;
+  }
+}
+
+#allOtherButtons {
+  width: 85%;
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0 20px 0;
+}
+
+#allOtherButtons button {
+  width: 160px;
+  height: 60px;
+  font-size: 1.6rem;
+
+  border-radius: 10px;
+}
+
+@media (width <= 500px) {
+  #allOtherButtons button {
+    width: 140px;
+    height: 60px;
+    font-size: 1.6rem;
+
+    border-radius: 10px;
+  }
+}
+
 /* Button Layout */
+/* 
 .container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 5px;
-}
+} */
 
 /* Buttons */
-button {
+
+/* transition: all 0.2s ease-in-out; */
+
+/* button {
   width: 80px;
   height: 80px;
   border: none;
@@ -104,12 +198,11 @@ button {
   font-size: 1.8em;
   font-weight: bold;
   cursor: pointer;
-  /* transition: all 0.2s ease-in-out; */
-}
+} */
 
 button:active {
-  transform: scale(2);
-  transition: transform 1s ease-in-out;
+  /* transform: scale(1.03);
+  transition: transform 0.05s ease-in-out; */
 
   animation: flash 0.2s ease-in-out;
 }
@@ -126,8 +219,9 @@ button:active {
 }
 
 /* Number Buttons */
+
 .number {
-  background-color: #60a5fa; /* Blue */
+  background-color: #60a5fa;
   color: white;
 }
 
@@ -136,6 +230,7 @@ button:active {
 }
 
 /* Operator Buttons */
+
 .operator {
   background-color: #22d3ee;
   color: black;
@@ -146,6 +241,7 @@ button:active {
 }
 
 /* Equal & Clear Buttons */
+
 #equal {
   background-color: #10b981;
   color: white;
@@ -167,37 +263,14 @@ button:active {
 }
 
 /* Special Buttons */
+
 #decimal,
 #backspace {
-  background-color: #64748b; /* Gray */
+  background-color: #64748b;
   color: white;
 }
 
 #decimal:hover,
 #backspace:hover {
-  background-color: #475569; /* Darker gray */
-}
-
-/* Number and Operator Containers */
-#allNumbers {
-  width: 75%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
-
-#fourOperators {
-  width: 25%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 10px 0;
-}
-
-#allOtherButons {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin: 10px;
+  background-color: #475569;
 }
